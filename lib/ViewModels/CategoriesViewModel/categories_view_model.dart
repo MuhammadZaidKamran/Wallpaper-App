@@ -18,8 +18,8 @@ class CategoriesViewModel extends BaseViewModel {
       var response = await http.get(uri);
       var responseBody = jsonDecode(response.body);
 
-      isLoading = false;
       data.addAll(responseBody["results"]);
+      isLoading = false;
       rebuildUi();
     } catch (e) {
       print(e);

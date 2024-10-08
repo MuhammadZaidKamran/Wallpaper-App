@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:stacked/stacked.dart';
 import 'package:wallpaper_app_2/ViewModels/SearchViewModel/search_view_model.dart';
 import 'package:wallpaper_app_2/Views/CategoriesView/categories_view.dart';
@@ -22,19 +23,19 @@ class SearchView extends StatelessWidget {
         return DefaultTabController(
           length: 2,
           child: Scaffold(
-            appBar: PreferredSize(preferredSize: Size(MediaQuery.of(context).size.width, 150), child: Container(
-              margin: EdgeInsets.only(top: 20),
+            appBar: PreferredSize(preferredSize: Size(MediaQuery.of(context).size.width, 135), child: Container(
+              margin: EdgeInsets.only(top: 15),
               padding: EdgeInsets.only(left: 15,top: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("Search",style: GoogleFonts.aBeeZee(
-                          fontSize: 20,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold
                         ),),
                         SizedBox(height: 3,),
-                        Text("searching through hundreds of photos will be\nso much easier now.",style: TextStyle(fontWeight: FontWeight.w300,fontSize: 13),),
-                        SizedBox(height: 8,),
+                        Text("searching through hundreds of photos will be\nso much easier now.",style: TextStyle(fontWeight: FontWeight.w300,fontSize: 11),),
+                        SizedBox(height: 5,),
                         TabBar(tabs: [Tab(text: "Photo",),Tab(text: "Category",)],dividerColor: Colors.white,),
                 ],
               ),
@@ -44,7 +45,6 @@ class SearchView extends StatelessWidget {
               children: [
                  SingleChildScrollView(
                 child: Container(
-                  margin: EdgeInsets.only(top: 10),
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,9 +76,9 @@ class SearchView extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 15,),
-                     // TabBar(tabs: [Tab(text: "Photo",),Tab(text: "Category",)],dividerColor: Colors.white,),
-                      SizedBox(height: 20,),
+                       SizedBox(height: 10,),
+                    //  // TabBar(tabs: [Tab(text: "Photo",),Tab(text: "Category",)],dividerColor: Colors.white,),
+                    //   SizedBox(height: 20,),
                       SizedBox(
                         height: MediaQuery.of(context).size.height,
                         child: GridView.builder(
@@ -91,10 +91,20 @@ class SearchView extends StatelessWidget {
                             childAspectRatio: 2 / 3.5,
                             ), itemBuilder: (context,index){
                               final image = viewModel.data[index];
-                            return ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: Image.network(image['urls']['regular'],fit: BoxFit.cover,),
-                            );
+                            return viewModel.isShimmer ?
+                            Shimmer.fromColors(
+                              baseColor: Colors.white,
+                              highlightColor: const Color.fromARGB(69, 0, 0, 0),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: Image.network(image['urls']['regular'],fit: BoxFit.cover,),
+                              ),
+                            )
+                            :
+                            ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: Image.network(image['urls']['regular'],fit: BoxFit.cover,),
+                              );
                           }
                           ),
                       ),
@@ -108,7 +118,7 @@ class SearchView extends StatelessWidget {
 
               SingleChildScrollView(
                 child: Container(
-                  margin: EdgeInsets.only(top: 5),
+                  //margin: EdgeInsets.only(top: 5),
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

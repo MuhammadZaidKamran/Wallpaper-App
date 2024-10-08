@@ -24,15 +24,19 @@ class SearchViewModel extends BaseViewModel {
   ScrollController scrollController = ScrollController();
   TextEditingController searchController = TextEditingController();
   List data = [];
+  bool isShimmer = false;
 
   fetchMoreData(search) async{
     try {
+      isShimmer = true;
+      rebuildUi();
       var url = "https://api.unsplash.com/search/photos/?client_id=xQC1aEXPBPmm9saYWUlwKNjz1WR_ktDx0OXz0VsuR3U&query=$search&per_page=10&page=${data.length}";
       var uri = Uri.parse(url);
       var response = await http.get(uri);
       var responseBody = jsonDecode(response.body);
 
       data.addAll(responseBody["results"]);
+      isShimmer = false;
       rebuildUi();
     } catch (e) {
       print(e);

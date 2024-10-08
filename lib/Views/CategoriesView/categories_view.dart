@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:stacked/stacked.dart';
 import 'package:wallpaper_app_2/ViewModels/CategoriesViewModel/categories_view_model.dart';
 
@@ -82,19 +83,20 @@ class CategoriesView extends StatelessWidget {
               itemBuilder: (context,index){
                 final wallpaper = viewModel.data[index];
                 double ht = index % 2 == 0 ? 200 : 100;
-                if (viewModel.isLoading) {
-                  return Center(
-                    child: SpinKitThreeBounce(
-                      size: 30,
-                      color: Colors.blue,
-                    ),
-                  );
-                } else {
-                  return ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Image.network(wallpaper['urls']['regular'],fit: BoxFit.cover,height: ht,),
-                ); 
-                }
+                  return viewModel.isLoading ?
+                  Shimmer.fromColors(
+                    baseColor: Colors.white,
+                    highlightColor: const Color.fromARGB(69, 0, 0, 0),
+                    child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.network(wallpaper['urls']['regular'],fit: BoxFit.cover,height: ht,),
+                                    ),
+                  )
+                  :
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.network(wallpaper['urls']['regular'],fit: BoxFit.cover,height: ht,),
+                    );
               }
             ),
           ),

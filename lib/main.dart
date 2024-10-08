@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:wallpaper_app_2/Views/BottomNavigationBar/bottom_navigation_bar.dart';
+import 'package:wallpaper_app_2/Views/CollectionView/collection_view.dart';
 import 'package:wallpaper_app_2/Views/HomeView/home_view.dart';
 import 'package:wallpaper_app_2/Views/SearchView/search_view.dart';
 
@@ -13,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SearchView(),
+      home: BottomNavBar(),
     );
   }
 }
