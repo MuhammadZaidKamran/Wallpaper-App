@@ -12,7 +12,7 @@ class SearchView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder.reactive(
       onViewModelReady: (viewModel) {
-        viewModel.scrollController.addListener((){
+        viewModel?.scrollController.addListener((){
           if (viewModel.scrollController.position.pixels == viewModel.scrollController.position.maxScrollExtent) {
             viewModel.fetchMoreData(viewModel.searchController.text);
           }
@@ -82,15 +82,15 @@ class SearchView extends StatelessWidget {
                       SizedBox(
                         height: MediaQuery.of(context).size.height,
                         child: GridView.builder(
-                          controller: viewModel.scrollController,
-                          itemCount: viewModel.data.length,
+                          controller: viewModel?.scrollController,
+                          itemCount: viewModel?.data.length,
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             mainAxisSpacing: 8,
                             crossAxisSpacing: 8,
                             childAspectRatio: 2 / 3.5,
                             ), itemBuilder: (context,index){
-                              final image = viewModel.data[index];
+                              final image = viewModel!.data[index];
                             return viewModel.isShimmer ?
                             Shimmer.fromColors(
                               baseColor: Colors.white,

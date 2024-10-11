@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:stacked/stacked.dart';
 import 'package:wallpaper_app_2/ViewModels/CategoriesViewModel/categories_view_model.dart';
+import 'package:wallpaper_app_2/Views/ImageView/image_view.dart';
 
 class CategoriesView extends StatelessWidget {
   final String categories_item;
@@ -93,10 +94,15 @@ class CategoriesView extends StatelessWidget {
                                     ),
                   )
                   :
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image.network(wallpaper['urls']['regular'],fit: BoxFit.cover,height: ht,),
-                    );
+                  InkWell(
+                    onTap: () async{
+                     await Navigator.push(context, MaterialPageRoute(builder: (context) => ImageView(image: wallpaper['urls']['full'],)));
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.network(wallpaper['urls']['regular'],fit: BoxFit.cover,height: ht,),
+                      ),
+                  );
               }
             ),
           ),

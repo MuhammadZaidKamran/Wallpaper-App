@@ -7,12 +7,14 @@ class SearchViewModel extends BaseViewModel {
 
   List<String> categories = [
     "Architecture",
+    "Art",
     "Movie",
     "Travel",
     "Animal",
     "Colorful",
     "Food",
     "Sport",
+    "Minimalist",
     "Nature",
   ];
 
